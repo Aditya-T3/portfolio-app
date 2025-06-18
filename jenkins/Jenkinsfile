@@ -3,7 +3,7 @@ pipeline {
     stages { 
         stage('Clone Repo') { 
             steps { 
-                git 'https://github.com/Aditya-T3/portfolio-app.git' 
+                git clone 'https://github.com/Aditya-T3/portfolio-app.git' 
             } 
         } 
  
