@@ -18,7 +18,7 @@ pipeline {
         stage('Run Container') { 
             steps { 
                 script { 
-                    docker.image("portfolio-app").run("-d -p 8080:80") 
+                    docker.image("portfolio-app").run("-d -p 8081:80") 
                 } 
             } 
         } 
