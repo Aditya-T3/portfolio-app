@@ -1,16 +1,15 @@
 #!/bin/bash
 
-# Get the group ID of the Docker socket
+# Get GID of Docker socket on the host
 DOCKER_GID=$(stat -c '%g' /var/run/docker.sock)
 
-# Create docker group with that GID (if not already exists)
+# Create docker group with that GID (ignore if it already exists)
 groupadd -for -g "$DOCKER_GID" docker
 
-# Add jenkins user to that group
+# Add jenkins user to docker group
 usermod -aG "$DOCKER_GID" jenkins
 
-# Print confirmation
-echo "Added jenkins to group with GID $DOCKER_GID"
+echo "Jenkins user added to Docker group with GID $DOCKER_GID"
 
-# Now run the original Jenkins entrypoint (as Jenkins user)
+# Start Jenkins as jenkins user
 exec su jenkins -c "/usr/bin/tini -- /usr/local/bin/jenkins.sh"

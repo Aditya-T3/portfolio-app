@@ -5,12 +5,10 @@ USER root
 # Install Docker CLI
 RUN apt-get update && apt-get install -y docker.io
 
-# Copy entrypoint script
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+# Copy custom entrypoint
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-# Switch back to Jenkins user
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+
 USER jenkins
-
-# Use custom entrypoint script
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
